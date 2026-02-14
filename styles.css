@@ -639,8 +639,8 @@ textarea:focus-visible {
   }
 
   .nav-links a {
-    padding-bottom: 0.85rem;
-    margin-bottom: -0.85rem; /* pull underline down to the very bottom edge of the bar */
+    padding-bottom: 1.4rem;
+    margin-bottom: -1.4rem; /* pull underline down to the very bottom edge of the bar */
   }
 }
 
