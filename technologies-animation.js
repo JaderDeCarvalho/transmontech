@@ -1,20 +1,31 @@
 (function () {
   "use strict";
-  var section = document.getElementById("technologies");
-  if (!section) return;
+  function toggleInView(entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+      } else {
+        entry.target.classList.remove("in-view");
+      }
+    });
+  }
 
-  var observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          section.classList.add("in-view");
-        } else {
-          section.classList.remove("in-view");
-        }
-      });
-    },
-    { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
-  );
+  var technologies = document.getElementById("technologies");
+  var process = document.getElementById("process");
 
-  observer.observe(section);
+  if (technologies) {
+    var techObserver = new IntersectionObserver(toggleInView, {
+      threshold: 0.15,
+      rootMargin: "0px 0px -10% 0px"
+    });
+    techObserver.observe(technologies);
+  }
+
+  if (process) {
+    var processObserver = new IntersectionObserver(toggleInView, {
+      threshold: 0.2,
+      rootMargin: "0px 0px -35% 0px"
+    });
+    processObserver.observe(process);
+  }
 })();
