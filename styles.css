@@ -186,6 +186,8 @@ main {
 .nav-links a {
   display: inline-block;
   padding: 0.35rem 0;
+  padding-top: 1.6rem;
+  margin-top: -1.4rem;
   font-size: 0.95rem;
   color: #374151;
   border-bottom: 2px solid transparent;
@@ -527,6 +529,46 @@ button.btn {
   text-align: center;
 }
 
+/* Technologies section background & card styling */
+#technologies {
+  position: relative;
+  background-image: linear-gradient(
+      135deg,
+      rgba(17, 24, 39, 0.75),
+      rgba(17, 24, 39, 0.75)
+    ),
+    url("images/technologies-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 80vh;
+  padding-top: 5rem;
+  padding-bottom: 7rem;
+}
+
+#technologies .section-header h2,
+#technologies .section-header p {
+  color: #f9fafb;
+}
+
+#technologies .card {
+  background-color: transparent;
+  border-color: var(--color-primary);
+  box-shadow: none;
+}
+
+#technologies .tech-card h3,
+#technologies .tech-card p {
+  color: #f9fafb;
+}
+
+@media (max-width: 900px) {
+  #technologies {
+    background-attachment: scroll;
+  }
+}
+
 /* Technologies section: scroll-triggered entrance animation */
 #technologies .section-header {
   opacity: 0;
@@ -581,7 +623,7 @@ button.btn {
 
 .process-step {
   position: relative;
-  min-height: 320px;
+  min-height: 460px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -643,7 +685,7 @@ button.btn {
   }
 
   .process-step {
-    min-height: 280px;
+    min-height: 360px;
   }
 }
 
@@ -689,19 +731,83 @@ button.btn {
 }
 
 /* About */
-.about-layout {
+.about-card-wrap {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.about-card {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr);
-  gap: 2rem;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 0;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background-color: var(--color-surface);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.16), 0 24px 60px rgba(15, 23, 42, 0.18);
+}
+
+.about-card-text {
+  padding: 4rem 3.5rem 4rem 4rem;
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--color-primary);
+}
+
+.about-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1.25rem 0;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.about-text {
+  margin: 0;
 }
 
 .about-text p {
   margin: 0.4rem 0;
-  color: var(--color-muted);
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+.about-text p:first-child {
+  margin-top: 0;
 }
 
 .about-text-pt {
   font-size: 0.95rem;
+}
+
+.about-card-image {
+  min-height: 480px;
+  background-image: url("images/about-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+  .about-card {
+    grid-template-columns: 1fr;
+  }
+
+  .about-card-image {
+    min-height: 320px;
+    order: -1;
+  }
+
+  .about-card-text {
+    padding: 3rem 2rem 3rem 2rem;
+  }
+
+  .about-title {
+    font-size: 1.75rem;
+  }
 }
 
 /* Contact */
@@ -859,7 +965,8 @@ textarea:focus-visible {
   }
 
   .nav-links a {
-    padding: 0.55rem 0;
+    padding: 0.85rem 0;
+    margin: 0.5rem 0;
   }
 
   .nav-toggle:checked + .nav-toggle-label + .nav-links {
