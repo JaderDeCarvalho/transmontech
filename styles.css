@@ -529,6 +529,19 @@ button.btn {
   text-align: center;
 }
 
+/* Technologies grid responsiveness */
+@media (max-width: 900px) {
+  .tech-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .tech-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* Technologies section background & card styling */
 #technologies {
   position: relative;
@@ -542,9 +555,9 @@ button.btn {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  min-height: 80vh;
-  padding-top: 5rem;
-  padding-bottom: 7rem;
+  min-height: 90vh;
+  padding-top: 5.5rem;
+  padding-bottom: 8rem;
 }
 
 #technologies .section-header h2,
@@ -553,9 +566,11 @@ button.btn {
 }
 
 #technologies .card {
+  margin-top: 30px;
   background-color: transparent;
   border-color: var(--color-primary);
   box-shadow: none;
+  padding: 1.9rem 1.75rem;
 }
 
 #technologies .tech-card h3,
@@ -584,7 +599,7 @@ button.btn {
 #technologies .tech-card {
   opacity: 0;
   transform: translateY(1rem);
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
 }
 
 #technologies.in-view .tech-card:nth-child(1) { transition-delay: 0.1s; }
@@ -595,6 +610,11 @@ button.btn {
 #technologies.in-view .tech-card {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Technologies cards: match Services hover animation */
+#technologies.in-view .tech-card:hover {
+  transform: translateY(-10px);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -611,81 +631,160 @@ button.btn {
 }
 
 /* Process */
+#process {
+  position: relative;
+}
+
+.process-scroll {
+  width: 100%;
+  overflow-x: auto;
+  padding: 0 1.5rem 0.5rem 1.5rem; /* base alignment with main container */
+  scrollbar-width: none; /* Firefox */
+}
+
+.process-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
 .process-list {
   list-style: none;
   margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  width: 100%;
+  padding: 0; /* rely on .process-scroll padding so first card lines up with container */
+  display: flex;
+  gap: 1.75rem;
+}
+
+/* Add trailing spacer so last step isn't glued to the right edge */
+.process-list::after {
+  content: "";
+  flex: 0 0 1px; /* base width; extended on large screens below */
 }
 
 .process-step {
   position: relative;
-  min-height: 460px;
+  min-height: 580px;
+  min-width: min(80vw, 420px);
+  flex: 0 0 auto;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 2rem 1.5rem;
-  color: #ffffff;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  align-items: stretch;
 }
 
-.process-step::before {
+.process-dots {
+  display: none;
+  position: relative;
+  left: 50%;
+  bottom: 1.75rem;
+  transform: translateX(-50%);
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.process-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.9);
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.process-dot.is-active {
+  background-color: var(--color-primary-dark);
+}
+
+.process-step {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Ccircle cx='48' cy='48' r='30' fill='white'/%3E%3Cpolygon points='4,48 8,42 8,54' fill='white'/%3E%3Cpolygon points='92,48 88,42 88,54' fill='white'/%3E%3Ctext x='48' y='53' text-anchor='middle' font-size='14' font-family='system-ui, -apple-system, BlinkMacSystemFont, %26quot%3BSegoe UI%26quot%3B, sans-serif' fill='black'%3EDrag%3C/text%3E%3C/svg%3E") 48 48, grab;
+}
+
+.process-scroll.is-dragging .process-step {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Ccircle cx='48' cy='48' r='30' fill='white'/%3E%3Cpolygon points='4,48 8,42 8,54' fill='white'/%3E%3Cpolygon points='92,48 88,42 88,54' fill='white'/%3E%3Ctext x='48' y='53' text-anchor='middle' font-size='14' font-family='system-ui, -apple-system, BlinkMacSystemFont, %26quot%3BSegoe UI%26quot%3B, sans-serif' fill='black'%3EDrag%3C/text%3E%3C/svg%3E") 48 48, grabbing;
+}
+
+.process-step-bg {
+  position: relative;
+  flex: 1 0 auto;
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem 2rem 2.4rem 2rem;
+  color: #ffffff;
+  background-size: 150%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.25);
+  transition: background-size 0.6s ease-out;
+}
+
+.process-step-bg::before {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(17, 24, 39, 0.75) 0%,
-    rgba(17, 24, 39, 0.5) 50%,
-    rgba(30, 155, 126, 0.35) 100%
+    rgba(26, 29, 36, 0.75) 0%,
+    rgba(26, 29, 36, 0.5) 50%,
+    rgba(26, 29, 36, 0.5) 100%
   );
   z-index: 0;
 }
 
-.process-step h3,
-.process-step p {
+.process-step:hover .process-step-bg {
+  background-size: 170%;
+}
+
+.process-step-content {
   position: relative;
   z-index: 1;
+  text-align: left;
 }
 
 .process-step h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.25rem;
+  margin: 0;
+  font-size: 1.5rem;
   color: #ffffff;
 }
 
 .process-step p {
-  margin: 0.3rem 0 0 0;
+  margin: 0.35rem 0 0 0;
   font-size: 0.9rem;
   line-height: 1.5;
   color: rgba(249, 250, 251, 0.95);
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(8px);
+  overflow: hidden;
+  transition: opacity 0.22s ease-out, transform 0.22s ease-out, max-height 0.22s ease-out;
 }
 
-.process-step-1 {
+.process-step:hover p {
+  max-height: 200px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.process-step-1 .process-step-bg {
   background-image: linear-gradient(135deg, rgba(32, 43, 66, 0.85), rgba(23, 66, 56, 0.3)), url("https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200");
 }
-.process-step-2 {
+.process-step-2 .process-step-bg {
   background-image: linear-gradient(135deg, rgba(32, 43, 66, 0.85), rgba(23, 66, 56, 0.3)), url("https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1200");
 }
-.process-step-3 {
+.process-step-3 .process-step-bg {
   background-image: linear-gradient(135deg, rgba(32, 43, 66, 0.85), rgba(23, 66, 56, 0.3)), url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200");
 }
-.process-step-4 {
+.process-step-4 .process-step-bg {
   background-image: linear-gradient(135deg, rgba(32, 43, 66, 0.85), rgba(23, 66, 56, 0.3)), url("https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200");
 }
 
 @media (max-width: 768px) {
   .process-list {
-    grid-template-columns: 1fr;
+    padding-inline: 1.25rem;
   }
 
   .process-step {
-    min-height: 360px;
+    min-height: 420px;
+    min-width: 75vw;
   }
 }
 
@@ -911,9 +1010,65 @@ textarea:focus-visible {
     padding-bottom: 1.4rem;
     margin-bottom: -1.4rem; /* pull underline down to the very bottom edge of the bar */
   }
+
+  /* How We Work horizontal scroll spacing on large screens */
+  .process-scroll {
+    padding-left: 300px;
+    padding-right: 300px;
+    padding-bottom: 55px;
+  }
+
+  .process-list::after {
+    flex-basis: 300px;
+  }
 }
 
 @media (max-width: 900px) {
+  /* How We Work as a snap carousel on medium & smaller screens */
+  .process-scroll {
+    scroll-snap-type: x mandatory;
+    /* match navbar container padding so cards align with logo/menu edges */
+    padding-left: 1.9rem;
+    padding-right: 1.9rem;
+    padding-bottom: 55px;
+  }
+
+  .process-step {
+    scroll-snap-align: center;
+    /* ensure all cards have identical width = viewport width minus container side padding */
+    flex: 0 0 calc(100vw - 3.8rem);
+    width: calc(100vw - 3.8rem);
+    min-width: calc(100vw - 3.8rem);
+    max-width: calc(100vw - 3.8rem);
+  }
+
+  /* On small/medium screens, keep the background image fully inside the card width */
+  .process-step-bg {
+    width: 100%;
+    box-sizing: border-box;
+    background-size: cover;
+  }
+
+  .process-step:hover .process-step-bg {
+    background-size: cover;
+  }
+
+  /* Slightly larger spacing between slides on small/medium screens */
+  .process-list {
+    gap: 2.2rem;
+  }
+
+  /* Show step text by default on touch devices (no hover needed) */
+  .process-step p {
+    max-height: 200px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .process-dots {
+    display: flex;
+  }
+
   .contact-layout {
     grid-template-columns: minmax(0, 1fr);
   }
