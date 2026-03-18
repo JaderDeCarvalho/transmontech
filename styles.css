@@ -491,7 +491,9 @@ button.btn {
 }
 
 #services .cards .card-back .card-icon {
-  display: none;
+  display: flex;
+  /* The back has a green background; icons use currentColor via `stroke="currentColor"`. */
+  color: #ffffff;
 }
 
 #services .cards .card-front .card-icon,
@@ -694,6 +696,9 @@ button.btn {
 #technologies .tech-card h3,
 #technologies .tech-card p {
   color: #f9fafb;
+  /* Prevent accidental selection/copying inside the technologies cards */
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 @media (max-width: 900px) {
@@ -746,6 +751,28 @@ button.btn {
   #technologies.in-view .tech-card:nth-child(4) {
     transition-delay: 0s;
   }
+}
+
+/* Prevent accidental selection/copying for static section text */
+.section-header h2,
+.section-header p,
+.hero-text h1,
+.hero-subtitle,
+.hero-subtitle-pt,
+.hero-note,
+.hero-note-pt,
+#services .cards .card-front h3,
+#services .cards .card-front .card-see-more,
+#services .cards .card-back h3,
+#services .cards .card-back p,
+.about-title,
+.about-text p,
+.contact-info h3,
+.contact-info p,
+.site-footer .footer-tagline,
+.site-footer .footer-copy {
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* Process */
@@ -861,12 +888,17 @@ button.btn {
   text-align: left;
   min-width: 0;
   max-width: 100%;
+  /* Prevent accidental selection/copying inside the horizontal process cards */
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .process-step h3 {
   margin: 0;
   font-size: 1.5rem;
   color: #ffffff;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .process-step p {
@@ -882,6 +914,8 @@ button.btn {
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .process-step:hover p {
