@@ -1326,3 +1326,55 @@ textarea:focus-visible {
   }
 }
 
+/* ── Thank You page ─────────────────────────────────────────── */
+.thankyou-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.thankyou-page > main {
+  flex: 1;
+  display: flex;
+}
+
+.thankyou-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.thankyou-card {
+  max-width: 560px;
+  padding: 3rem 2rem;
+  margin: 0 auto;
+}
+
+.thankyou-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+}
+
+.thankyou-icon svg {
+  color: #fff;
+}
+
+.thankyou-card h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.thankyou-card p {
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
